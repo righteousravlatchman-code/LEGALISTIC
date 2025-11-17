@@ -1,0 +1,7 @@
+{
+  "name": "MEMBER ACCESS",
+  "description": "A sophisticated strategic advisor app from MEMBER ACCESS that combines numerology and astrology with modern AI to generate personalized 'Executive Blueprints'.",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}

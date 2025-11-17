@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="royal-amethyst">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MEMBER ACCESS | Strategic Life Architecture</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      :root {
+        --font-sans: 'Inter', sans-serif;
+        --font-serif: 'Cinzel', serif;
+      }
+      
+      [data-theme="royal-amethyst"] {
+        --color-bg-primary: #12002f;
+        --color-bg-primary-rgba: 18, 0, 47;
+        --color-bg-secondary: #4a148c;
+        --color-bg-secondary-rgba: 74, 20, 140;
+        --color-text-primary: #ffffff;
+        --color-text-secondary: #d1d5db;
+        --color-accent-gold: #ffab00;
+        --color-accent-gold-bright: #ffd740;
+        --color-accent-indigo: #7c43bd;
+        --color-accent-indigo-rgba: 124, 67, 189;
+
+        --shadow-gold-glow: 0 0 15px rgba(255, 171, 0, 0.6);
+        --shadow-purple-glow: 0 0 15px rgba(124, 67, 189, 0.6);
+      }
+
+      body {
+        background-color: var(--color-bg-primary);
+        background-image: linear-gradient(135deg, var(--color-bg-primary) 0%, var(--color-bg-secondary) 100%);
+        color: var(--color-text-primary);
+        font-family: var(--font-sans);
+        transition: background-color 0.5s ease, color 0.5s ease;
+      }
+
+      .gradient-text {
+        background-image: linear-gradient(to right, var(--color-accent-gold), var(--color-accent-gold-bright));
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+      
+      .glass-card {
+        background: linear-gradient(135deg, rgba(var(--color-accent-indigo-rgba), 0.05) 0%, rgba(var(--color-bg-primary-rgba), 0.1) 100%);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border: 1px solid rgba(255, 171, 0, 0.2); /* var(--color-accent-gold) with alpha */
+        border-radius: 1rem; /* 16px */
+        box-shadow: var(--shadow-purple-glow);
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      }
+      .glass-card:hover {
+        border-color: rgba(255, 171, 0, 0.4);
+      }
+
+      /* Custom Animations */
+      @keyframes fadeIn {
+          from { opacity: 0; }
+          to { opacity: 1; }
+      }
+      @keyframes slideUp {
+          from { transform: translateY(20px); opacity: 0; }
+          to { transform: translateY(0); opacity: 1; }
+      }
+      @keyframes pulseGlow {
+        0%, 100% { box-shadow: 0 0 15px rgba(255, 171, 0, 0.4), 0 0 30px rgba(124, 67, 189, 0.2); }
+        50% { box-shadow: 0 0 25px rgba(255, 171, 0, 0.7), 0 0 50px rgba(124, 67, 189, 0.4); }
+      }
+
+      .animate-in {
+          animation: fadeIn 0.5s ease-out forwards;
+      }
+      .animate-slide-up {
+        animation: slideUp 0.6s ease-out forwards, fadeIn 0.6s ease-out forwards;
+      }
+      .animate-pulse-glow {
+          animation: pulseGlow 2.5s infinite ease-in-out;
+      }
+      
+      /* Custom Scrollbar */
+      ::-webkit-scrollbar {
+          width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+          background: var(--color-bg-primary);
+      }
+      ::-webkit-scrollbar-thumb {
+          background-color: var(--color-accent-gold);
+          border-radius: 10px;
+          border: 2px solid var(--color-bg-primary);
+      }
+      ::-webkit-scrollbar-thumb:hover {
+          background-color: var(--color-accent-gold-bright);
+      }
+
+      /* Hide scrollbar for elements with this class */
+      .hide-scrollbar::-webkit-scrollbar {
+          display: none;
+      }
+      .hide-scrollbar {
+          -ms-overflow-style: none;  /* IE and Edge */
+          scrollbar-width: none;  /* Firefox */
+      }
+
+      /* Smooth Scrolling */
+      html {
+          scroll-behavior: smooth;
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.28.0",
+    "jspdf": "https://aistudiocdn.com/jspdf@^2.5.1",
+    "html2canvas": "https://aistudiocdn.com/html2canvas@^1.4.1",
+    "@supabase/supabase-js": "https://aistudiocdn.com/@supabase/supabase-js@^2.45.0"
+  }
+}
+</script>
+</head>
+  <body class="leading-relaxed overflow-x-hidden">
+    <canvas id="particle-canvas" class="fixed top-0 left-0 w-full h-full z-[-1]"></canvas>
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+    <script>
+      const canvas=document.getElementById("particle-canvas"),ctx=canvas.getContext("2d");let particles;function setSize(){canvas.width=window.innerWidth,canvas.height=window.innerHeight}
+      class Particle{constructor(t,e,i,s,h,o){this.x=t,this.y=e,this.directionX=i,this.directionY=s,this.size=h,this.color=o}draw(){ctx.beginPath(),ctx.arc(this.x,this.y,this.size,0,2*Math.PI,!1),ctx.fillStyle=this.color,ctx.fill()}update(){this.x>canvas.width||this.x<0?this.directionX=-this.directionX:void 0,this.y>canvas.height||this.y<0?this.directionY=-this.directionY:void 0,this.x+=this.directionX,this.y+=this.directionY,this.draw()}}
+      function init(){particles=[];let t=canvas.height*canvas.width/9e3;for(let e=0;e<t;e++){let t=(Math.random()*1.5)+.5,i=Math.random()*(innerWidth-2*t-2*t)+2*t,s=Math.random()*(innerHeight-2*t-2*t)+2*t,h=.4*Math.random()-.2,o=.4*Math.random()-.2;particles.push(new Particle(i,s,h,o,t,"rgba(255, 171, 0, 0.4)"))}}
+      function animate(){requestAnimationFrame(animate),ctx.clearRect(0,0,innerWidth,innerHeight);for(let t=0;t<particles.length;t++)particles[t].update()}window.addEventListener("resize",function(){setSize(),init()}),setSize(),init(),animate();
+    </script>
+  </body>
+</html>
